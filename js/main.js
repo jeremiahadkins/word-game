@@ -55,7 +55,7 @@ $(document).ready(function($) {
   let $guessDisplay = $('.guesses').find('h1');
   let $blank = Array(wordChars.length).fill('_');
   $guessDisplay.text($blank.join(' '));
-  console.log($blank);
+  // console.log($blank);
 
 
 
@@ -108,13 +108,30 @@ $(document).ready(function($) {
         console.log('guess correct index', index);
         $blank[index] = letterGuessed;
         $guessDisplay.text($blank.join(' '));
+
         if (_.includes($blank, '_', [fromIndex=0]) === false) {
-          console.log('WINNER WINNER CHICKEN DINNER');
+          let $winnerDiv = $('<h4 class="winner animated fadeInDownBig">You smart! You loyal! You a genius!</h4>');
+          $winnerDiv.appendTo('.guesses');
+          $guessDisplay.addClass('animated jello');
+          let $playNewGame = $("<a href='#' class='play-again animated fadeInDown'>Play Again &#8674;</a>")
+          $playNewGame.click(function() {
+            event.preventDefault();
+            newGame(event);
+            console.log('link clicked play button')
+          });
+          setTimeout(function(){ $playNewGame.appendTo('.guesses'); }, 2000);
+          $playNewGame.addClass('pulse');
         }
+
       } 
     });
     console.log('guesses left:', guesses);
     updateDisplay(guesses);
+  }
+
+  function newGame() {
+    updateDisplay(8);
+    
   }
 
 
