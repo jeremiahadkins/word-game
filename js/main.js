@@ -7,6 +7,16 @@ $(document).ready(function($) {
   let alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
                   'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
+  let alphabetUpper = arrayToUppercase(alphabet);
+
+  function arrayToUppercase(array) {
+    let arrayUpper = array.map(function(elem, index) {
+      return elem.toUpperCase();
+    })
+    return arrayUpper;
+  }
+
+
   // filter words > 3
   let filteredWords = [];
   commonWords.forEach( function(word, index) {
@@ -15,10 +25,11 @@ $(document).ready(function($) {
     }
   });
 
+  let wordsUpper = arrayToUppercase(filteredWords);
 
 
   // select random word from filtered array
-  let word = _.sample(filteredWords);
+  let word = _.sample(wordsUpper);
 
   // split characters into array
   let wordChars = word.split('');
@@ -41,27 +52,29 @@ $(document).ready(function($) {
 
 
   // generate blanks per letter of word
-    let $guessDisplay = $('.guesses').find('h1');
-    let $blank = Array(wordChars.length).fill('_');
-    $guessDisplay.text($blank.join(' '));
-    console.log($blank);
+  let $guessDisplay = $('.guesses').find('h1');
+  let $blank = Array(wordChars.length).fill('_');
+  $guessDisplay.text($blank.join(' '));
+  console.log($blank);
 
 
 
   // generate keyboard
   function generateKeyboard () {
-    for (var i = 0; i < alphabet.length; i++) {
+    for (var i = 0; i < alphabetUpper.length; i++) {
       let $charBtn = $('<input type="button" class="btn" />');
-      $charBtn.val(alphabet[i]);
+      $charBtn.val(alphabetUpper[i]);
       $charBtn.appendTo('.container');
     }
   }
   generateKeyboard();
 
+
+  let letterGuessed = '';
   // bind guess function to click event on btn
   let $clickBtn = $('.btn');
   $clickBtn.click(function guess(event) {
-    let letterGuessed = event.target.value;
+    letterGuessed = event.target.value;
     
     if (wordChars.includes(letterGuessed)) {
       guessCorrect();
@@ -90,8 +103,25 @@ $(document).ready(function($) {
 
   // function to run if guess is correct
   function guessCorrect() {
+    wordChars.forEach( function(element, index, array) {
+      if (element === letterGuessed) {
+        console.log('guess correct index', index);
+        $blank[index] = letterGuessed;
+        $guessDisplay.text($blank.join(' '));
+        if (_.includes($blank, '_', [fromIndex=0]) === false) {
+          console.log('WINNER WINNER CHICKEN DINNER');
+        }
+      } 
+    });
     console.log('guesses left:', guesses);
     updateDisplay(guesses);
   }
+
+
+  // setup key presses
+  // $('body').on( "keydown", function(event) {
+  //   console.log(event.which, event.type);
+  //   console.log(String.fromCharCode(event.which));
+  // });
 
 });
