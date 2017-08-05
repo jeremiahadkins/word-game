@@ -27,17 +27,26 @@ $(document).ready(function($) {
 
   let wordsUpper = arrayToUppercase(filteredWords);
 
+  let word = '';
+  let wordChars = '';
+  let $guessDisplay = '';
+  let $blank = [];
 
-  // select random word from filtered array
-  let word = _.sample(wordsUpper);
+  function startNewGame(){
+    // select random word from filtered array
+    word = _.sample(wordsUpper);
+    // split characters into array
+    wordChars = word.split('');
+    console.log(word);
+    console.log(wordChars);  
+    // generate blanks per letter of word
+    $guessDisplay = $('.guesses').find('h1');
+    $blank = Array(wordChars.length).fill('_');
+    $guessDisplay.text($blank.join(' '));
+    // console.log($blank);
+  };
 
-  // split characters into array
-  let wordChars = word.split('');
-  
-  console.log(word);
-  console.log(wordChars);  
-
-
+  startNewGame();
 
   // turns left div
   let $turnsLeft = $(`<h2>Guesses left: ${guesses}</h2>`);
@@ -48,15 +57,6 @@ $(document).ready(function($) {
     $turnDisplay = $('.turns-left').find('h2');
     $turnDisplay.text('Guesses left: ' + value);    
   }
-
-
-
-  // generate blanks per letter of word
-  let $guessDisplay = $('.guesses').find('h1');
-  let $blank = Array(wordChars.length).fill('_');
-  $guessDisplay.text($blank.join(' '));
-  // console.log($blank);
-
 
 
   // generate keyboard
@@ -100,6 +100,15 @@ $(document).ready(function($) {
   }
 
 
+  let  $playNewGame = $("<a href='#' class='play-again animated fadeInDown'>Play Again &#8674;</a>");
+  
+  $playNewGame.click(function() {
+    event.preventDefault();
+    newGame(event);
+    console.log('link clicked play button')
+  });
+
+  let $winnerDiv = $('<h4 class="winner animated fadeInDownBig">You smart! You loyal! You a genius!</h4>');
 
   // function to run if guess is correct
   function guessCorrect() {
@@ -110,19 +119,11 @@ $(document).ready(function($) {
         $guessDisplay.text($blank.join(' '));
 
         if (_.includes($blank, '_', [fromIndex=0]) === false) {
-          let $winnerDiv = $('<h4 class="winner animated fadeInDownBig">You smart! You loyal! You a genius!</h4>');
           $winnerDiv.appendTo('.guesses');
           $guessDisplay.addClass('animated jello');
-          let $playNewGame = $("<a href='#' class='play-again animated fadeInDown'>Play Again &#8674;</a>")
-          $playNewGame.click(function() {
-            event.preventDefault();
-            newGame(event);
-            console.log('link clicked play button')
-          });
           setTimeout(function(){ $playNewGame.appendTo('.guesses'); }, 2000);
           $playNewGame.addClass('pulse');
         }
-
       } 
     });
     console.log('guesses left:', guesses);
@@ -131,7 +132,10 @@ $(document).ready(function($) {
 
   function newGame() {
     updateDisplay(8);
-    
+    $playNewGame.detach();
+    $winnerDiv.detach();
+    startNewGame();
+    // todo: remove animation classes from text
   }
 
 
