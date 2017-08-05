@@ -1,0 +1,79 @@
+$light-color: #fff;
+$dark-color: #000;
+$background: #222;
+
+body {
+  background-color: $background;
+  font-family: 'Work Sans', sans-serif;
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 560px;
+  text-align: center;
+}
+
+.guesses {
+  background-color: rgba($dark-color, .2);
+  border-bottom: solid 1px rgba($light-color, .1);
+  color: $light-color;
+  padding: 40px 0;
+  margin-bottom: 24px;
+  text-align: center;
+  width: 100%;
+
+  h1 { font-size: 3em; }
+}
+
+.btn {
+  background-color: rgba($dark-color, .2);
+  border: solid 1px rgba($light-color, .2);
+  border-radius: 10%;
+  color: $light-color;
+  flex: 1;
+  font-size: 1.6em;
+  height: 60px;
+  margin: 5px;
+  max-width: 50px;
+  min-width: 50px;
+  text-transform: uppercase;
+  transition: all.4s ease;
+
+  &:hover {
+    background-color: rgba($dark-color, .5);
+    color: $light-color;
+    cursor: pointer;
+    transform: scale(1.02);
+  }
+}
+
+.turns-left {
+  width: 100%;
+
+  h2 {
+    color: $light-color;
+    font-size: 1.4em;
+    font-weight: 400;
+    // letter-spacing: 2px;
+    margin: 36px 0;
+    text-transform: capitalize;
+  }
+}
+
+.instructions {
+  color: rgba($light-color, .3);
+  font-size: .8em;
+  font-weight: 400;
+}
+
+.game-name {
+  color: $light-color;
+  flex-grow: 1;
+  font-size: 2em;
+  font-weight: 700;
+  margin-bottom: 0;
+}
