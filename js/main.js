@@ -44,18 +44,19 @@ $(document).ready(function($) {
     $blank = Array(wordChars.length).fill('_');
     $guessDisplay.text($blank.join(' '));
     // console.log($blank);
+    $('.chosen').removeClass('chosen');
   };
 
   startNewGame();
 
   // turns left div
-  let $turnsLeft = $(`<h2>Guesses left: ${guesses}</h2>`);
+  let $turnsLeft = $(`<h2>${guesses}</h2>`);
   $turnsLeft.appendTo('.turns-left');
 
 
   function updateDisplay(value) {
     $turnDisplay = $('.turns-left').find('h2');
-    $turnDisplay.text('Guesses left: ' + value);    
+    $turnDisplay.text(value);    
   }
 
 
@@ -75,6 +76,7 @@ $(document).ready(function($) {
   let $clickBtn = $('.btn');
   $clickBtn.click(function guess(event) {
     letterGuessed = event.target.value;
+    $(event.target).addClass('chosen');
     
     if (wordChars.includes(letterGuessed)) {
       guessCorrect();
@@ -86,7 +88,7 @@ $(document).ready(function($) {
     return letterGuessed;
   });
 
-
+  // TODO: unbind click event after button is clicked;
 
   // function to run if guess is incorrect
   function guessIncorrect() {

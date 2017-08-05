@@ -38,7 +38,7 @@ body {
   border-radius: 10%;
   color: $light-color;
   flex: 1;
-  font-size: 1.6em;
+  font-size: 1.4em;
   height: 60px;
   margin: 5px;
   max-width: 50px;
@@ -49,18 +49,35 @@ body {
     background-color: rgba($dark-color, .5);
     color: $light-color;
     cursor: pointer;
-    transform: scale(1.02);
+    transform: scale(.94);
+  }
+
+  &:focus { outline: none; }
+
+  &.chosen {
+    background-color: transparent;
+    color: rgba($light-color, .1);
+
+    &:hover { cursor: disabled; }
   }
 }
 
 .turns-left {
-  width: 100%;
+  color: rgba($light-color, .5);
+  border: solid 1px rgba($light-color, .2);
+  display: inline-block;
+  padding: 20px;
+  border-radius: 8px;
+  background-color: $dark-color;
+  // width: 40%;
+  margin: 20px auto;
+  font-size: .8em;
 
   h2 {
     color: $light-color;
-    font-size: 1.4em;
-    font-weight: 400;
-    margin: 36px 0;
+    font-size: 3em;
+    font-weight: 700;
+    margin: 0;
     text-transform: capitalize;
   }
 }
