@@ -69,8 +69,7 @@ body {
   display: inline-block;
   padding: 20px;
   border-radius: 8px;
-  background-color: $dark-color;
-  // width: 40%;
+  background-color: rgba($dark-color, .3);
   margin: 20px auto;
   font-size: .8em;
 
@@ -94,7 +93,7 @@ body {
   flex-grow: 1;
   font-size: 2em;
   font-weight: 700;
-  margin-bottom: 0;
+  margin: 40px 0 0;
 }
 
 .winner {
