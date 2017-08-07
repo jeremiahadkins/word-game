@@ -30,7 +30,7 @@ $(document).ready(function($) {
   let word = '';
   let wordChars = '';
   let $guessDisplay = '';
-  let $blank = [];
+  let $empty = [];
 
   function startNewGame(){
     // select random word from filtered array
@@ -41,9 +41,9 @@ $(document).ready(function($) {
     console.log(wordChars);  
     // generate blanks per letter of word
     $guessDisplay = $('.guesses').find('h1');
-    $blank = Array(wordChars.length).fill('_');
-    $guessDisplay.text($blank.join(' '));
-    // console.log($blank);
+    $empty = Array(wordChars.length).fill('_');
+    $guessDisplay.text($empty.join(' '));
+    // console.log($empty);
     $('.chosen').removeClass('chosen');
   };
 
@@ -74,6 +74,8 @@ $(document).ready(function($) {
   let letterGuessed = '';
   // bind guess function to click event on btn
   let $clickBtn = $('.btn');
+
+  // bind function
   $clickBtn.click(function guess(event) {
     letterGuessed = event.target.value;
     $(event.target).addClass('chosen');
@@ -126,10 +128,10 @@ $(document).ready(function($) {
     wordChars.forEach( function(element, index, array) {
       if (element === letterGuessed) {
         console.log('guess correct index', index);
-        $blank[index] = letterGuessed;
-        $guessDisplay.text($blank.join(' '));
+        $empty[index] = letterGuessed;
+        $guessDisplay.text($empty.join(' '));
 
-        if (_.includes($blank, '_', [fromIndex=0]) === false) {
+        if (_.includes($empty, '_', [fromIndex=0]) === false) {
           $winnerDiv.appendTo('.guesses');
           $guessDisplay.addClass('animated jello');
           setTimeout(function(){ $playNewGame.appendTo('.guesses'); }, 2000);
@@ -154,9 +156,10 @@ $(document).ready(function($) {
 
 
   // setup key presses
-  // $('body').on( "keydown", function(event) {
-  //   console.log(event.which, event.type);
-  //   console.log(String.fromCharCode(event.which));
-  // });
+  $('body').on( "keyup", function(event) {
+    // guess(event);
+    console.log(event.which, event.type);
+    console.log(String.fromCharCode(event.which));
+  });
 
 });
