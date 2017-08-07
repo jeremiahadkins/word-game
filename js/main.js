@@ -77,6 +77,7 @@ $(document).ready(function($) {
   $clickBtn.click(function guess(event) {
     letterGuessed = event.target.value;
     $(event.target).addClass('chosen');
+    $(event.target).unbind('click');
     
     if (wordChars.includes(letterGuessed)) {
       guessCorrect();
@@ -88,7 +89,8 @@ $(document).ready(function($) {
     return letterGuessed;
   });
 
-  // TODO: unbind click event after button is clicked;
+
+
 
   // function to run if guess is incorrect
   let $loserDiv = $('<h4 class="loser animated fadeInDownBig">Womp womp. Better luck next time!</h4>');
@@ -96,6 +98,7 @@ $(document).ready(function($) {
   function guessIncorrect() {
     guesses = guesses - 1;
     if (guesses <= 0) {
+      guesses = guesses - 1;
       $loserDiv.appendTo('.guesses');
       setTimeout(function(){ $playNewGame.appendTo('.guesses'); }, 2000);
       $playNewGame.addClass('pulse');
