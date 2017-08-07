@@ -78,9 +78,12 @@ body {
 .winner {
   color: #2ecc71; }
 
+.loser {
+  color: #e74c3c; }
+
 .play-again {
   animation-iteration-count: 3;
-  border: solid 1px #2ecc71;
+  border: solid 1px #fff;
   border-radius: 4px;
   color: #fff;
   font-size: .7em;

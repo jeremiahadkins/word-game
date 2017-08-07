@@ -91,10 +91,14 @@ $(document).ready(function($) {
   // TODO: unbind click event after button is clicked;
 
   // function to run if guess is incorrect
+  let $loserDiv = $('<h4 class="loser animated fadeInDownBig">Womp womp. Better luck next time!</h4>');
+  
   function guessIncorrect() {
     guesses = guesses - 1;
     if (guesses <= 0) {
-      updateDisplay('YOU LOSER');
+      $loserDiv.appendTo('.guesses');
+      setTimeout(function(){ $playNewGame.appendTo('.guesses'); }, 2000);
+      $playNewGame.addClass('pulse');
     } else {
       console.log('guesses left:', guesses);
       updateDisplay(guesses);
@@ -110,8 +114,10 @@ $(document).ready(function($) {
     console.log('link clicked play button')
   });
 
-  let $winnerDiv = $('<h4 class="winner animated fadeInDownBig">You smart! You loyal! You a genius!</h4>');
 
+
+
+  let $winnerDiv = $('<h4 class="winner animated fadeInDownBig">You smart! You loyal! You a genius!</h4>');
   // function to run if guess is correct
   function guessCorrect() {
     wordChars.forEach( function(element, index, array) {
@@ -132,10 +138,13 @@ $(document).ready(function($) {
     updateDisplay(guesses);
   }
 
+
+
   function newGame() {
     updateDisplay(8);
     $playNewGame.detach();
     $winnerDiv.detach();
+    $loserDiv.detach();
     startNewGame();
     // todo: remove animation classes from text
   }

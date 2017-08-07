@@ -2,6 +2,7 @@ $light-color: #fff;
 $dark-color: #000;
 $background: #222;
 $success-color: #2ecc71;
+$fail-color: #e74c3c;
 
 body {
   background-color: $background;
@@ -100,9 +101,13 @@ body {
   color: $success-color;
 }
 
+.loser {
+  color: $fail-color;
+}
+
 .play-again {
   animation-iteration-count: 3;
-  border: solid 1px $success-color;
+  border: solid 1px $light-color;
   border-radius: 4px;
   color: $light-color;
   font-size: .7em;
